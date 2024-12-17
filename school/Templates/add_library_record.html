@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Library Record</title>
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f6f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #15803d; /* Green */
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+      
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #166534; /* Dark Green */
+            font-weight: bold;
+        }
+
+        form input, form select, form textarea {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #fafafa;
+            transition: border-color 0.3s ease;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            border-color: #22c55e; /* Light Green */
+            outline: none;
+        }
+
+        form button {
+            background-color: #15803d; /* Green */
+            color: #fff;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #166534; /* Darker Green */
+        }
+
+       
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #15803d; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #166534;
+            text-decoration: underline;
+        }
+
+       
+        footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+            background-color: #166534; 
+            color: white;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Add Library Record</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Add Library Record</button>
+        </form>
+
+        <div class="back-link">
+            <a href="{% url 'librarian_dashboard' %}">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <footer>
+      School Management System
+    </footer>
+
+</body>
+</html>

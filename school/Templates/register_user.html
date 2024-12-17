@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/static.css' %}">
+    <style>
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #ecf0f1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #34495e;
+            color: white;
+            padding-top: 50px;
+            position: fixed;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #ecf0f1;
+            display: block;
+            padding: 14px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #16a085;
+            color: white;
+        }
+
+        .sidebar .active {
+            background-color: #1abc9c;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 250px;
+            width: 100%;
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .form-container h1 {
+            color: #27ae60;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container button {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #2ecc71;
+        }
+
+        .form-container a {
+            display: block;
+            text-align: center;
+            color: #27ae60;
+            margin-top: 20px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .form-container a:hover {
+            color: #2ecc71;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="{% url 'admin_dashboard' %}" class="active">Dashboard</a>
+        <a href="{% url 'register_user' %}">Register User</a>
+        <a href="{% url 'manage_users' %}">Manage Users</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="form-container">
+            <h1>Register New User</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Register">
+            </form>
+
+            <a href="{% url 'admin_dashboard' %}">Back to Dashbaord</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Staff Dashboard</title>
+    <style>
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #eafaf1; /* Light green background */
+            color: #2d3436;
+            line-height: 1.6;
+            padding: 30px 15px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #27ae60; /* Green color for title */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            background-color: #27ae60; /* Green header for sections */
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            overflow: hidden;
+        }
+
+        /* Section Layout */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        /* Table Layout */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            color: #27ae60;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .action-links a {
+            color: #27ae60; /* Green link color */
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .action-links a:hover {
+            color: #2ecc71; /* Darker green for hover effect */
+        }
+
+        /* Button Styles */
+        .btn {
+            background-color: #27ae60; /* Green button color */
+            color: white;
+            padding: 14px 24px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2ecc71; /* Darker green on hover */
+        }
+
+        /* Back to Dashboard Link */
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-link a {
+            background-color: #27ae60; /* Green color for the back button */
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background-color: #2ecc71; /* Darker green on hover */
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            table th, table td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            background-color: #27ae60; /* Green footer background */
+            color: white;
+            padding: 15px;
+            font-size: 1rem;
+            margin-top: 40px;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Staff Dashboard</h1>
+
+        <!-- Student Details Section -->
+        <div class="section">
+            <h2>Student Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Roll Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.roll_number }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Fees History Section -->
+        <div class="section">
+            <h2>Fees History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Fee Type</th>
+                        <th>Amount</th>
+                        <th>Payment Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fee in fees_history %}
+                    <tr>
+                        <td>{{ fee.student.name }}</td>
+                        <td>{{ fee.fee_type }}</td>
+                        <td>{{ fee.amount }}</td>
+                        <td>{{ fee.payment_date }}</td>
+                        <td>
+                            <div class="action-links">
+                                <a href="{% url 'edit_fee' fee.id %}">Edit</a> |
+                                <a href="{% url 'delete_fee' fee.id %}">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url 'add_fee' %}" class="btn">Add New Fee Record</a>
+        </div>
+
+        <!-- Library Records Section -->
+        <div class="section">
+            <h2>Library Records</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in library_records %}
+                    <tr>
+                        <td>{{ record.book_name }}</td>
+                        <td style="color: #2ecc71;">{{ record.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Logout Link -->
+        <div class="section">
+            <a href="{% url 'logout' %}" class="btn">Logout</a>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard Link -->
+    <div class="back-link">
+        <a href="{% url 'admin_dashboard' %}">Back to Dashboard</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        School Management System
+    </footer>
+
+</body>
+</html>
